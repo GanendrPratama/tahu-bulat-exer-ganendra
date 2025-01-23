@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Card from "../components/card";
 
 export default function Home() {
   return (
@@ -22,6 +23,8 @@ export default function Home() {
           </li>
           <li>Save and see your changes instantly.</li>
         </ol>
+
+        <Card title="Test" children="review" />
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <a
