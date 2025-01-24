@@ -37,4 +37,20 @@ const loginUsingGoogle = async () => {
     });
 };
 
-export { registerNewUser, findUserByEmail, loginUsingGoogle };
+const addNewReview = async (firstname, lastname, star, title, review) => {
+    const { error } = await supabase
+        .from('reviews')
+        .insert({
+            firstname: firstname,
+            lastname: lastname,
+            star: star,
+            title: title,
+            review: review,
+        });
+
+    if (error) {
+        throw new Error(error.message);
+    }
+};
+
+export { registerNewUser, findUserByEmail, loginUsingGoogle, addNewReview };
