@@ -1,4 +1,4 @@
-const { addNewReview } = require('../../backend/handler');
+const { addNewReview } = require('../../../backend/handler');
 
 export default async function handler(req, res) {
     const { firstname, lastname, star, title, review } = req.body;
