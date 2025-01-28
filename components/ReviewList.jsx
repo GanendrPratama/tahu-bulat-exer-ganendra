@@ -37,6 +37,18 @@ export default function ReviewList() {
 
  const handleSubmit = async (e) => {
    e.preventDefault();
+
+   if (!formData.firstname.trim() || 
+     !formData.lastname.trim() || 
+     !formData.star ||
+     !formData.title.trim() ||
+     !formData.review.trim()) 
+     {
+      alert('All fields are required');
+      return;
+     }
+
+
    const res = await fetch('/api/addNewReview', {
      method: 'POST',
      headers: { 'Content-Type': 'application/json' },
