@@ -1,4 +1,4 @@
-import { ReviewForm } from '../../components/reviewForm';
+import { ReviewForm } from '../../components/ReviewForm/ReviewForm';
 
 const ReviewPage = () => {
     return (

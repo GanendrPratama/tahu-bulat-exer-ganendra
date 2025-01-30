@@ -1,22 +1,20 @@
 "use server"
 
 import { createSupabaseServerClient } from "./server"
-import { cookies } from 'next/headers'
 
-export default async function checkSession() {
+export default async function signUpHandler(email, password) {
     try {
         const supabase = await createSupabaseServerClient();
-        const { data: { session }, error } = await supabase.auth.getSession();
+        const { data, error } = await supabase.auth.signUp({
+            email,
+            password,
+        });
 
         if (error) {
             return { success: false, error: error.message };
         }
 
-        if (!session) {
-            return { success: false, error: 'No active session' };
-        }
-
-        return { success: true, session };
+        return { success: true, data };
     } catch (err) {
         return { success: false, error: err.message };
     }

@@ -3,20 +3,17 @@
 import { createSupabaseServerClient } from "./server"
 import { cookies } from 'next/headers'
 
-export default async function checkSession() {
+export default async function logOutHandler() {
     try {
         const supabase = await createSupabaseServerClient();
-        const { data: { session }, error } = await supabase.auth.getSession();
+        const { error } = await supabase.auth.signOut();
 
         if (error) {
             return { success: false, error: error.message };
         }
 
-        if (!session) {
-            return { success: false, error: 'No active session' };
-        }
-
-        return { success: true, session };
+        cookies().delete('session');
+        return { success: true };
     } catch (err) {
         return { success: false, error: err.message };
     }

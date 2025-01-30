@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "backend/client.js", "components/ReviewList.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "backend/client.js", "components/ReviewForm/ReviewList.jsx", "backend/logOutHandler.js"],
   "exclude": ["node_modules"]
 }

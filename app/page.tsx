@@ -1,12 +1,14 @@
 import Image from "next/image";
-import ReviewList from '@/components/ReviewList';
-import GoogleLoginButton from '@/components/googleLoginButton';
+import LoginButton from "@/components/LoginButton";
+import ReviewList from '@/components/ReviewForm/ReviewList';
+import AuthButton from "@/components/AuthButton";
 
-export default function Home() {
+export default async function Home() {
+
   return (
     <div>
       <div>
-        <GoogleLoginButton />
+        <AuthButton />
       </div>
       <div>
         <h1>Reviews</h1>
