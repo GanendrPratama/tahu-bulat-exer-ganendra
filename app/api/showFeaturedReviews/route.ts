@@ -1,5 +1,6 @@
-import { createSupabaseServerClient } from '@/backend/server'
+import { supabase } from '@/backend/client'
 import { NextResponse } from 'next/server'
+import { features } from 'process'
 
 interface Review {
   id: number
@@ -13,10 +14,10 @@ interface Review {
 
 export async function GET(): Promise<NextResponse> {
   try {
-    const supabase = await createSupabaseServerClient()
     const { data, error } = await supabase
       .from('reviews')
       .select('*')
+      .eq("featured", true)
       .order('id', { ascending: true })
       .limit(3)
     

@@ -1,18 +1,23 @@
 import { createSupabaseServerClient } from '@/backend/server'
 import Card from './Card'
 import ReviewFormButton from './ReviewFormButton'
-import ShowAllToggle from './ShowAllToggle'
+import AdminShowAllToggle from './AdminShowAllToggle'
+import reviews from '@/backend/featuredReviews'
 
-export default async function ReviewList() {
+export default async function AdminReviewList() {
   const supabase = await createSupabaseServerClient()
   const { data: { session } } = await supabase.auth.getSession()
   
-  const featuredResponse = await fetch('/api/showFeaturedReviews')
-  const { data: featuredData } = await featuredResponse.json()
+  const { data: featuredData } = await supabase
+    .from('reviews')
+    .select()
+    .eq('featured', true)
+    .in('id', [reviews.firstID, reviews.secondID, reviews.thirdID])
   
-  const allResponse = await fetch('/api/getAllReview')
-  const { data: allData } = await allResponse.json()
-
+  const { data: allData } = await supabase
+    .from('reviews')
+    .select()
+    .order('created_at', { ascending: false })
 
     return (
       <div className="w-full">
@@ -32,7 +37,7 @@ export default async function ReviewList() {
           
           <div className="flex flex-col md:flex-row justify-center items-center gap-4 mt-8 mb-6 w-full max-w-4xl mx-auto px-4">
             <ReviewFormButton session={session} />
-            <ShowAllToggle allReviews={allData} />
+            <AdminShowAllToggle allReviews={allData} />
           </div>
         </div>
       </div>

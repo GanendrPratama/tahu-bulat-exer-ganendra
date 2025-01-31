@@ -44,11 +44,9 @@ export default function Navbar() {
                             <a href="/" className="block py-2 px-3 text-white rounded hover:bg-[#fb9f45] md:hover:bg-transparent md:hover:text-gray-200" aria-current="page">Home</a>
                         </li>
                         <li>
-                            <a href="/about" className="block py-2 px-3 text-white rounded hover:bg-[#fb9f45] md:hover:bg-transparent md:hover:text-gray-200">About</a>
+                            <a href="/Dashboard" className="block py-2 px-3 text-white rounded hover:bg-[#fb9f45] md:hover:bg-transparent md:hover:text-gray-200">Dashboard</a>
                         </li>
-                        <li>
-                            <a href="/services" className="block py-2 px-3 text-white rounded hover:bg-[#fb9f45] md:hover:bg-transparent md:hover:text-gray-200">Services</a>
-                        </li>
+                        
                     </ul>
                 </div>
             </div>

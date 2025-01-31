@@ -11,14 +11,15 @@ export default async function AdminReviewList() {
   const { data: { session } } = await supabase.auth.getSession()
   
   const { data: featuredData } = await supabase
-    .from('reviews')
-    .select()
-    .in('id', [reviews.firstID, reviews.secondID, reviews.thirdID])
-  
-  const { data: allData } = await supabase
-    .from('reviews')
-    .select()
-    .order('created_at', { ascending: false })
+  .from('reviews')
+  .select()
+  .eq('featured', true)
+  .in('id', [reviews.firstID, reviews.secondID, reviews.thirdID])
+
+const { data: allData } = await supabase
+  .from('reviews')
+  .select()
+  .order('created_at', { ascending: false })
 
     return (
       <div className="w-full">
