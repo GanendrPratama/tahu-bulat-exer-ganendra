@@ -2,21 +2,17 @@ import { createSupabaseServerClient } from '@/backend/server'
 import Card from './Card'
 import ReviewFormButton from './ReviewFormButton'
 import ShowAllToggle from './ShowAllToggle'
-import reviews from '@/backend/featuredReviews'
 
 export default async function ReviewList() {
   const supabase = await createSupabaseServerClient()
   const { data: { session } } = await supabase.auth.getSession()
   
-  const { data: featuredData } = await supabase
-    .from('reviews')
-    .select()
-    .in('id', [reviews.firstID, reviews.secondID, reviews.thirdID])
+  const featuredResponse = await fetch('/api/showFeaturedReviews')
+  const { data: featuredData } = await featuredResponse.json()
   
-  const { data: allData } = await supabase
-    .from('reviews')
-    .select()
-    .order('created_at', { ascending: false })
+  const allResponse = await fetch('/api/getAllReview')
+  const { data: allData } = await allResponse.json()
+
 
     return (
       <div className="w-full">
