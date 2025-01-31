@@ -1,10 +1,8 @@
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
-import  Head  from "next/head"
 import { PostHogProvider } from './providers'
 import { BannerProvider } from '@/components/Banner/BannerContext'
-import { Partytown } from '@builder.io/partytown/react'
 import PostHogClient from './PostHog';
 
 const geistSans = Geist({
@@ -35,12 +33,6 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head>
-        <Partytown debug={true} forward={['dataLayer.push']} />
-        
-        
-
-      </Head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <PostHogProvider>
         <BannerProvider>
