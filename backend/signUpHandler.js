@@ -1,6 +1,7 @@
 "use server"
 
 import { createSupabaseServerClient } from "./server"
+import  PostHogClient from '@/app/PostHog'
 
 export default async function signUpHandler(email, password) {
     try {
@@ -13,7 +14,7 @@ export default async function signUpHandler(email, password) {
         if (error) {
             return { success: false, error: error.message };
         }
-
+        PostHogClient.capture('user_signed_up');
         return { success: true, data };
     } catch (err) {
         return { success: false, error: err.message };

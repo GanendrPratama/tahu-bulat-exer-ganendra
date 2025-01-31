@@ -12,6 +12,9 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      animation: {
+        bounce: 'bounce 1s infinite',
+      }
     },
   },
   plugins: [

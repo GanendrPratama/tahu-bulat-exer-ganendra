@@ -30,6 +30,20 @@ export default function AuthModal({ isOpen, onClose, onSubmit, formType, error: 
         }
     }
 
+    const handleRandomPassword = async () => {
+        try {
+            const response = await fetch('/api/getRandomPassword');
+            const data = await response.json();
+            if (response.ok) {
+                setPassword(data.password)
+            }
+        } catch (error) {
+            setError('Failed to generate password')
+        } finally {
+            setLoading(false)
+        }
+    }
+
     return (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <div className="bg-white p-6 rounded-lg shadow-xl w-96 animate-fade-in">
@@ -65,6 +79,18 @@ export default function AuthModal({ isOpen, onClose, onSubmit, formType, error: 
                         required
                         disabled={loading}
                     />
+
+                    { formType === 'signup' ? 
+                    
+                
+                    <button
+                        type="button"
+                        onClick={handleRandomPassword}
+                        className="px-3 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+                        disabled={loading}
+                    >
+                    Generate a Random Password
+                    </button> : null}
                     
                     {error && (
                         <p className="text-red-500 text-sm">{error}</p>

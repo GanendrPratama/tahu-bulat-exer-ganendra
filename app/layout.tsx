@@ -1,6 +1,11 @@
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
+import  Head  from "next/head"
+import { PostHogProvider } from './providers'
+import { BannerProvider } from '@/components/Banner/BannerContext'
+import { Partytown } from '@builder.io/partytown/react'
+import PostHogClient from './PostHog';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -11,6 +16,12 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 })
+
+const posthog = PostHogClient()
+  const flags = await posthog.getAllFlags(
+    'phc_8A9MUNZrykOEg4SGYh4zBIbik69PEok08Vlz1lzEuci' // replace with a user's distinct ID
+  );
+  await posthog.shutdown()
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,8 +35,18 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+        <Partytown debug={true} forward={['dataLayer.push']} />
+        
+        
+
+      </Head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-             {children}
+        <PostHogProvider>
+        <BannerProvider>
+          {children}
+        </BannerProvider>
+        </PostHogProvider>
       </body>
     </html>
   )

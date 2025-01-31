@@ -2,9 +2,11 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useBanner } from '@/components/Banner/BannerContext'
 
 export default function ReviewForm({ session, onClose }) {
   const router = useRouter()
+  const { showBanner } = useBanner()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [formData, setFormData] = useState({
@@ -18,6 +20,10 @@ export default function ReviewForm({ session, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (!session) {
+      showBanner('Please login to submit a review', 'error')
+      return
+    }
     setLoading(true)
     setError('')
     
@@ -31,6 +37,7 @@ export default function ReviewForm({ session, onClose }) {
       if (res.ok) {
         onClose()
         router.refresh()
+        showBanner('Review submitted successfully', 'success')
       } else {
         const data = await res.json()
         setError(data.error || 'Failed to submit review')
@@ -41,6 +48,26 @@ export default function ReviewForm({ session, onClose }) {
       setLoading(false)
     }
   }
+
+  const handleRandom = async () => {
+    setLoading(true)
+    try {
+        const response = await fetch('/api/getRandomFirstAndLastName')
+        const data = await response.json()
+        
+        if (response.ok) {
+            setFormData(prev => ({
+                ...prev,
+                firstname: data.firstname,
+                lastname: data.lastname
+            }))
+        }
+    } catch (error) {
+        setError('Failed to fetch random names')
+    } finally {
+        setLoading(false)
+    }
+}
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
@@ -53,7 +80,6 @@ export default function ReviewForm({ session, onClose }) {
             className="text-gray-500 hover:text-gray-700"
             disabled={loading}
           >
-            ×
           </button>
         </div>
 
@@ -76,6 +102,15 @@ export default function ReviewForm({ session, onClose }) {
           required
           disabled={loading}
         />
+
+        <button
+          type="button"
+          onClick={handleRandom}
+          className="px-3 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+          disabled={loading}
+        >
+                    Random
+        </button>
 
         <div className="flex items-center space-x-2">
           <label>Rating:</label>

@@ -9,7 +9,7 @@ export default function ReviewFormButton({ session }) {
   if (!session) {
     return (
       <button 
-        className="bg-gray-400 text-white px-4 py-2 rounded cursor-not-allowed"
+        className="w-full md:w-1/2 bg-gray-400 text-white px-8 py-4 rounded-lg text-lg font-medium cursor-not-allowed hover:bg-gray-500 transition-colors"
         onClick={() => alert('Please login to add a review')}
       >
         Login to Add Review
@@ -21,9 +21,9 @@ export default function ReviewFormButton({ session }) {
     <>
       <button
         onClick={() => setShowForm(true)}
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-      >
-        Add Review
+        className="w-full md:w-1/2 bg-blue-500 text-white px-8 py-4 rounded-lg text-lg font-medium hover:bg-blue-600 transition-colors"
+      >   
+      Add Review
       </button>
       {showForm && (
         <ReviewForm

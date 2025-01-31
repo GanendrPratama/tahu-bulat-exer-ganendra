@@ -1,7 +1,9 @@
 'use client'
 
+
+
 import { useState } from 'react'
-import Card from './Card'
+import AdminCard from './AdminCard'
 
 export default function ShowAllToggle({ allReviews }) {
   const [showAll, setShowAll] = useState(false)
@@ -30,9 +32,10 @@ export default function ShowAllToggle({ allReviews }) {
             
             <div className="overflow-y-auto max-h-[70vh]">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {allReviews?.map(review => (
-                  <Card
+              {allReviews?.map(review => (
+                  <AdminCard
                     key={review.id}
+                    id={review.id}
                     firstname={review.firstname}
                     lastname={review.lastname}
                     star={review.star}
